@@ -1,1 +1,14 @@
 C:\Users\Alex\Desktop\sapper\Sapper\Sapper\bin\Debug\Sapper.exe.config
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\bin\Debug\Sapper.exe
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\bin\Debug\Sapper.pdb
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\Sapper.csprojResolveAssemblyReference.cache
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\UI\MainWindow.g.cs
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\App.g.cs
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\Sapper_MarkupCompile.cache
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\Sapper_MarkupCompile.lref
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\UI\MainWindow.baml
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\Sapper.g.resources
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\Sapper.Properties.Resources.resources
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\Sapper.csproj.GenerateResource.Cache
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\Sapper.exe
+C:\Users\Alex\Desktop\sapper\Sapper\Sapper\obj\Debug\Sapper.pdb
