@@ -29,42 +29,23 @@ namespace Sapper.UI
 
         public AuthWindow()
         {
-            InitializeComponent();
-            
+            InitializeComponent();         
         }
-        private string GetMd5Hash(MD5 md5Hash, string input)
-        {
-
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
- 
-            StringBuilder sBuilder = new StringBuilder();
-
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            return sBuilder.ToString();
-        }
-
-
+     
         private void timer_Tick(object sender, EventArgs e)
         {
             TextLogin.Text = "Логин:";
-            TextLogin.Foreground = Brushes.Black;
-         
+            TextLogin.Foreground = Brushes.Black;        
         }
 
         private bool check_params()
         {
-            if (_authLog!=null || _authPass!=null)
+            if (_authLog != null || _authPass != null)
             {
                 return true;
             }
             else
             {
-
                 TextLogin.Text = "Не все поля заполнены!";
                 TextLogin.Foreground = Brushes.Red;
                 
@@ -75,6 +56,7 @@ namespace Sapper.UI
                 return false;
             }
         }
+
         private void submitLogin_Click(object sender, RoutedEventArgs e)
         {
             if (check_params())
@@ -110,14 +92,12 @@ namespace Sapper.UI
             TextBox log = (TextBox)sender;
             _authLog = log.Text;
         
-            //_logdata = log.ToString();
-        
+            //_logdata = log.ToString();     
         }
 
         private void password_PasswordChanged(object sender, RoutedEventArgs e)
         {
             PasswordBox pass = (PasswordBox)sender;
-            MD5 md5Hash = MD5.Create();
             string nonHash = pass.Password;
             if (nonHash.Equals(""))
             {
@@ -125,11 +105,17 @@ namespace Sapper.UI
             }
             else
             {
-                string hash = GetMd5Hash(md5Hash, nonHash);
+                string hash = ComputeMD5(nonHash);
                 _authPass = hash;
-            }
-            
+            }            
+        }
 
+        private string ComputeMD5(string pass)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] checkSum = md5.ComputeHash(Encoding.UTF8.GetBytes(pass));
+            string result = BitConverter.ToString(checkSum).Replace("-", String.Empty);
+            return result;
         }
     }
 }
