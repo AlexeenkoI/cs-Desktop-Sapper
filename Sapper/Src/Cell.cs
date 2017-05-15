@@ -11,21 +11,25 @@ namespace Sapper.Src
     class Cell : ICell
     {
         private CellType CellType;
-        private State State;
-        private int numberMinesAround;
+        private State State = State.Close;
+        private int numberMinesAround = 0; //возможно удалить это и вынести счетчик мин в field
         private int posX, posY;
+        
+        public Cell()
+        {
 
-        public Cell(CellType incType, State incState, int incX, int incY)
+        }
+
+        public Cell(CellType incType, int incX, int incY)
         {
             this.CellType = incType;
-            this.State = incState;
             this.posX = incX;
             this.posY = incY;
         }
 
         public void set_numberMinesAround(int mineCount)
         {
-            if(get_SellType().Equals(CellType.NumericField) )
+            if(this.get_cellType().Equals(CellType.NumericField) )
             {
                 this.numberMinesAround = mineCount;
             }
@@ -35,25 +39,24 @@ namespace Sapper.Src
             return this.numberMinesAround;
         }
 
-        public void set_CellType(CellType incCellType)
+
+        public void set_cellType(CellType incCellType)
         {
             if(incCellType!=0)
             this.CellType = incCellType;
         }
-
-        public CellType get_SellType()
+        public CellType get_cellType()
         {
             return this.CellType;
         }
 
-
+        
         
         public void set_State(State incState)
         {
             if(incState!=0)
             this.State = incState;
         }
-
         public State get_State()
         {
             return this.State;
@@ -63,17 +66,13 @@ namespace Sapper.Src
         
         public void set_Positions(int x, int y)
         {
-           
                 this.posX = x;
                 this.posY = y;
-            
         }
-
         public int get_Position_X()
         {
             return this.posX;
         }
-
         public int get_Position_Y()
         {
             return this.posY;
