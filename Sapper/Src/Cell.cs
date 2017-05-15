@@ -34,7 +34,7 @@ namespace Sapper.Src
                 this.numberMinesAround = mineCount;
             }
         }
-        public int get_numberMinesAround() //
+        public int get_numberMinesAround() 
         {
             return this.numberMinesAround;
         }
