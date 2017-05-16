@@ -8,8 +8,8 @@ namespace Sapper.Enums
 {
     public enum CellType
     {
-        Mine = 1,
-        EmptyField = 2,
-        NumericField = 3
+        MINE = 1,
+        EMPTYFIELD = 2,
+        NUMERICFIELD = 3
     }
 }

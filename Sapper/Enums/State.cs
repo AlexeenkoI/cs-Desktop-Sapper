@@ -8,9 +8,9 @@ namespace Sapper.Enums
 {
     public enum State
     {
-        Open = 1,
-        Close = 2,
-        Flag = 3,
-        Question = 4
+        OPEN  = 1,
+        CLOSE = 2,
+        FLAG = 3,
+        QUESTION = 4
     }
 }

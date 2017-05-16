@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sapper.UI"
         mc:Ignorable="d"
-        Title="Авторизация" Height="450" Width="500"
+        Title="Authirization" Height="450" Width="500"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -118,24 +118,24 @@
 
     <Canvas Background="Azure">
         <TextBlock Canvas.Left="160" Canvas.Top="30">
-                <Run FontSize="28" Foreground="LightSeaGreen">Авторизация</Run>
+                <Run FontSize="28" Foreground="LightSeaGreen">Authorization</Run>
                 <LineBreak/>
-                <Run FontSize="11.5">пожалуйста, авторизуйтесь.</Run>
+                <Run FontSize="11.5">please, authorize.</Run>
         </TextBlock>
         <TextBlock x:Name="TextLogin" Canvas.Top="100" Canvas.Left="160">
-                <Run FontSize="14">Логин:</Run>
+                <Run FontSize="14">Login:</Run>
         </TextBlock>
         <TextBox  x:Name="login" MaxLength="50" Width="170" Height="40" Canvas.Top="120" Canvas.Left="160" TextInput="login_TextChanged">
         </TextBox>
         <TextBlock Canvas.Top="170" Canvas.Left="160">
-                <Run FontSize="14">Пароль:</Run>
+                <Run FontSize="14">Password:</Run>
         </TextBlock>
         <PasswordBox  FontSize="18" Padding="0,5,0,0" x:Name="password" MaxHeight="50" Width="170" Height="40" Canvas.Top="190" Canvas.Left="160" Style="{DynamicResource PasswordBoxStyle1}" PasswordChanged="password_PasswordChanged">
         </PasswordBox>
         <Button x:Name="submitLogin" Content="OK" Canvas.Top="245" Canvas.Left="170" Height="30" Width="60" Click="submitLogin_Click"/>
         <Button x:Name="cancelButton" Content="Cancel" Canvas.Top="245" Canvas.Left="255" Height="30" Width="60" Click="cancelButton_Click" />
         <TextBlock FontSize="14" Canvas.Top="390" Canvas.Left="60">
-                Нет учетной записи? <Hyperlink Click="siteRedirect_Click">зарегестрируйтесь на сайте</Hyperlink> или <Hyperlink Click="regWindowOpen_Click">здесь.</Hyperlink>
+                No Account? <Hyperlink Click="siteRedirect_Click">register on the website</Hyperlink> or <Hyperlink Click="regWindowOpen_Click">here.</Hyperlink>
         </TextBlock>
 
     </Canvas>

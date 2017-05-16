@@ -34,7 +34,7 @@ namespace Sapper.UI
      
         private void timer_Tick(object sender, EventArgs e)
         {
-            TextLogin.Text = "Логин:";
+            TextLogin.Text = "Login:";
             TextLogin.Foreground = Brushes.Black;        
         }
 
@@ -46,7 +46,7 @@ namespace Sapper.UI
             }
             else
             {
-                TextLogin.Text = "Не все поля заполнены!";
+                TextLogin.Text = "Not all fields are filled!";
                 TextLogin.Foreground = Brushes.Red;
                 
                 timer = new DispatcherTimer();

@@ -11,7 +11,7 @@ namespace Sapper.Src
     class Cell : ICell
     {
         private CellType CellType;
-        private State State = State.Close;
+        private State State = State.CLOSE;
         private int numberMinesAround = 0; //возможно удалить это и вынести счетчик мин в field
         private int posX, posY;
         
@@ -29,7 +29,7 @@ namespace Sapper.Src
 
         public void set_numberMinesAround(int mineCount)
         {
-            if(this.get_cellType().Equals(CellType.NumericField) )
+            if(this.get_cellType().Equals(CellType.NUMERICFIELD) )
             {
                 this.numberMinesAround = mineCount;
             }
