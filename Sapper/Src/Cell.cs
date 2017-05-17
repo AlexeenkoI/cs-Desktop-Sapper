@@ -29,10 +29,8 @@ namespace Sapper.Src
 
         public void set_numberMinesAround(int mineCount)
         {
-            if(this.get_cellType().Equals(CellType.NUMERICFIELD) )
-            {
-                this.numberMinesAround = mineCount;
-            }
+            this.numberMinesAround = mineCount;
+            
         }
         public int get_numberMinesAround() 
         {
@@ -42,7 +40,7 @@ namespace Sapper.Src
 
         public void set_cellType(CellType incCellType)
         {
-            if(incCellType!=0)
+            
             this.CellType = incCellType;
         }
         public CellType get_cellType()
