@@ -72,7 +72,7 @@ namespace Sapper.Src
 
             if (response.IsSuccessStatusCode)
             {
-                GameData constructedData = Json.parseAuthJson(response);
+                GameData constructedData = Json.parseGameDataJson(response);
                 return constructedData;
             }
             

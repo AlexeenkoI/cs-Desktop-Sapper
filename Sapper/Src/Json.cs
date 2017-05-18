@@ -15,17 +15,7 @@ namespace Sapper.Src
             return null;
         }
 
-        public static HttpContent generateRegJson(RegData data)
-        {
-            return null;
-        }
-
-        public static HttpContent generateRegJson(RegData data)
-        {
-            return null;
-        }
-
-        public static HttpContent generateRegJson(RegData data)
+        public static HttpContent generateAuthJson(AuthData data)
         {
             return null;
         }
@@ -35,17 +25,7 @@ namespace Sapper.Src
             return null;
         }
 
-        public static HttpContent parse (RegData data)
-        {
-            return null;
-        }
-
-        public static HttpContent parse (RegData data)
-        {
-            return null;
-        }
-
-        public static HttpContent parse (RegData data)
+        public static GameData parseGameDataJson(HttpResponseMessage data)
         {
             return null;
         }
