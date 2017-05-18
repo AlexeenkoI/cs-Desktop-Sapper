@@ -25,7 +25,7 @@ namespace Sapper.Src
             //     new KeyValuePair<string, string>("nickName", regData.Nickname),
             //     new KeyValuePair<string, string>("time",time)
             // });
-            HttpContent r = new StringContent("adasd");
+           
             HttpContent sendContent = Json.generateRegJson(regData);  //to do class json
             var httpClient = new HttpClient();
             
@@ -56,7 +56,7 @@ namespace Sapper.Src
             
             if (response.IsSuccessStatusCode)
             {
-                AuthData constructedData = Json.parseAuthData(response);
+                AuthData constructedData = Json.parseAuthJson(response);
                 //some logic for user to show that he's succsessfully registered
                 return constructedData;
             }
