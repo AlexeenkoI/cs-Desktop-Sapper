@@ -43,7 +43,7 @@ namespace Sapper.Src
                 Encoding.ASCII.GetBytes(
                 string.Format("{0}:{1}", log, pass))));
 
-            var response = await httpClient.GetAsync(uri); // uri will be switched for configurred baseaddr
+            var response = await httpClient.GetAsync(QueryApi.SERVER + QueryApi.QUERY_AUTH); // uri will be switched for configurred baseaddr
 
             if (response.IsSuccessStatusCode)
             {
@@ -77,6 +77,7 @@ namespace Sapper.Src
             }
             
             Message.show((int) response.StatusCode);
+            return null;
         }
     }
 }
