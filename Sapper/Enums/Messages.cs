@@ -13,6 +13,7 @@ namespace Sapper.Enums
         PASSWORDS_DO_NOT_MATCH = 3,
         EMPTY_LOGIN = 4,
         EMPTY_PASSWORD = 5,
-        EMPTY_NAME = 6
+        EMPTY_NAME = 6,
+        SERVER_REQUEST_EMPTY_DATA = 7
     }
 }
