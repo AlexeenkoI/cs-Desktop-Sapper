@@ -8,52 +8,43 @@ using System.Net.Http.Headers;
 using Sapper.Enums;
 using Sapper.Models;
 using System.Runtime.Serialization;
-
+using System.Net;
 
 namespace Sapper.Src
 {
     public static class Http
     {
-        
+
         public static async Task<bool> RegRequest(RegData regData)
         {
-            
-            // string time = regData.regTime.ToString();
-            // var sendContent = new FormUrlEncodedContent(new[] {
-            //     new KeyValuePair<string, string>("login", regData.Name),
-            //     new KeyValuePair<string, string>("password", regData.Password),
-            //     new KeyValuePair<string, string>("nickName", regData.Nickname),
-            //     new KeyValuePair<string, string>("time",time)
-            // });
-           
             HttpContent sendContent = Json.generateRegJson(regData);  //to do class json
+
             var httpClient = new HttpClient();
-            
-            
-            var response = await httpClient.PostAsync(uri, sendContent); // uri will be switched for configurred baseaddr
+            var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_REGISTER, sendContent); // uri will be switched for configurred baseaddr
+
             if (response.IsSuccessStatusCode)
             {
                 return true;//some logic for user to show that he's succsessfully registered
-                
-            }else
+            }
+            else
             {
                 //some logic for user to show that something goes wrong
                 return false;
-                
             }
-
         }
 
         public static async Task<AuthData> AuthRequest(string log, string pass)
         {
             var httpClient = new HttpClient();
+
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-                "Basic", 
+                "Basic",
                 Convert.ToBase64String(
                 Encoding.ASCII.GetBytes(
-                string.Format("{0}:{1}",log,pass))));
+                string.Format("{0}:{1}", log, pass))));
+
             var response = await httpClient.GetAsync(uri); // uri will be switched for configurred baseaddr
-            
+
             if (response.IsSuccessStatusCode)
             {
                 AuthData constructedData = Json.parseAuthJson(response);
@@ -63,8 +54,29 @@ namespace Sapper.Src
             else
             {
                 return null;//some logic for user to show that something goes wrong
-
             }
+        }
+
+        public static async Task<GameData> getGameData (AuthData data)
+        {
+            var httpClient = new HttpClient();
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+                "Basic",
+                Convert.ToBase64String(
+                Encoding.ASCII.GetBytes(
+                string.Format("{0}:{1}", Auth.login, Auth.password))));
+
+            HttpContent sendContent = Json.generateAuthJson(data);
+            var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_GET_DATA, sendContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                GameData constructedData = Json.parseAuthJson(response);
+                return constructedData;
+            }
+            
+            Message.show((int) response.StatusCode);
         }
     }
 }

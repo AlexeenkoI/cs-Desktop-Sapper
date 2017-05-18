@@ -29,6 +29,9 @@ namespace Sapper.Src
                 case Messages.EMPTY_NAME:
                     MessageBox.Show("Name field is empty");
                     break;
+                case Messages.SERVER_REQUEST_EMPTY_DATA:
+                    MessageBox.Show("You have no saved game results");
+                    break;
             }
         }    
     }
