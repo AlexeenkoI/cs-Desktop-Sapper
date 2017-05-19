@@ -79,5 +79,16 @@ namespace Sapper.Src
             Message.show((int) response.StatusCode);
             return null;
         }
+
+        public static async Task<bool> saveGameData(GameData gameData)
+        {
+            HttpClient httpClient = new HttpClient();
+            HttpContent httpContent = Json.generateGameDataJson(gameData);
+            //HttmpContent httpContent = Json.generateJson(gameData);
+
+            HttpResponseMessage response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_REGISTER, httpContent);
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }
