@@ -14,7 +14,7 @@ namespace Sapper.Src
 {
     public static class Http
     {
-
+        
         public static async Task<bool> RegRequest(RegData regData)
         {
             HttpContent sendContent = Json.generateRegJson(regData);  //to do class json

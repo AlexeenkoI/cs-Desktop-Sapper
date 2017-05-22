@@ -38,7 +38,7 @@ namespace Sapper.Src
             if (data.cGameLvl!=0 && data.cGameType!=0) {
                 JsonObject jsonObj = new JsonObject();
 
-                jsonObj.Add("UserID", data.cUserId);
+                jsonObj.Add("UserId", data.cUserId);
                 jsonObj.Add("Difficult", data.cGameLvl);
                 jsonObj.Add("GameType", data.cGameType);
                 jsonObj.Add("Score", data.cGameScore);
@@ -53,7 +53,13 @@ namespace Sapper.Src
 
         public static AuthData parseAuthJson (HttpResponseMessage data)
         {
-            return null;
+            string body = data.Content.ToString();
+     
+            JsonValue result = JsonValue.Parse(body);
+
+            AuthData authData = new AuthData((int)result["id"],(string)result["nickName"],(int)result["Token"]);
+
+            return authData;
         }
 
         public static GameData parseGameDataJson(HttpResponseMessage data)
