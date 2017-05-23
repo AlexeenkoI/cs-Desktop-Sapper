@@ -19,8 +19,8 @@ namespace Sapper.Src
                 
                 jsonObj.Add("Name", data.Name);
                 jsonObj.Add("Password", data.Password);
-                jsonObj.Add("Nickname", data.Nickname);
-                jsonObj.Add("RegTime", data.regTime.ToString());
+                jsonObj.Add("NickName", data.Nickname);
+                //jsonObj.Add("RegTime", data.regTime.ToString());
                 
                 StringContent res = new StringContent(jsonObj.ToString(), Encoding.UTF8, "application/json");
                 return res;
@@ -57,7 +57,7 @@ namespace Sapper.Src
      
             JsonValue result = JsonValue.Parse(body);
 
-            AuthData authData = new AuthData((int)result["id"],(string)result["nickName"],(int)result["Token"]);
+            AuthData authData = new AuthData((int)result["id"],(string)result["NickName"],(Guid)result["Token"]);
 
             return authData;
         }

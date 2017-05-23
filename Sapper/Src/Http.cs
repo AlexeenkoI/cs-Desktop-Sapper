@@ -9,6 +9,7 @@ using Sapper.Enums;
 using Sapper.Models;
 using System.Runtime.Serialization;
 using System.Net;
+using System.Windows;
 
 namespace Sapper.Src
 {
@@ -20,15 +21,32 @@ namespace Sapper.Src
             HttpContent sendContent = Json.generateRegJson(regData);  //to do class json
 
             var httpClient = new HttpClient();
-            var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_REGISTER, sendContent); // uri will be switched for configurred baseaddr
 
-            if (response.IsSuccessStatusCode)
+            try
             {
-                return true;//some logic for user to show that he's succsessfully registered
+                var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_REGISTER, sendContent); // uri will be switched for configurred baseaddr
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Message.show(1);
+                    return true;
+                    //some logic for user to show that he's succsessfully registered
+                }
+                if(response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    Message.show(3);
+                    return false;
+                }
+                else
+                {
+                    Message.show(2);//some logic for user to show that something goes wrong
+                    return false;
+                }
             }
-            else
+            catch (Exception e)
             {
-                //some logic for user to show that something goes wrong
+                MessageBox.Show(e.Message);
                 return false;
             }
         }
@@ -36,24 +54,33 @@ namespace Sapper.Src
         public static async Task<AuthData> AuthRequest(string log, string pass)
         {
             var httpClient = new HttpClient();
-
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            try
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                 "Basic",
                 Convert.ToBase64String(
                 Encoding.ASCII.GetBytes(
                 string.Format("{0}:{1}", log, pass))));
 
-            var response = await httpClient.GetAsync(QueryApi.SERVER + QueryApi.QUERY_AUTH); // uri will be switched for configurred baseaddr
+           
+                var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_AUTH,null); // uri will be switched for configurred baseaddr
 
-            if (response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("123");
+                    AuthData constructedData = Json.parseAuthJson(response);
+                    //some logic for user to show that he's succsessfully registered
+                    return constructedData;
+                }
+                else
+                {
+                    MessageBox.Show("none");
+                    return null;//some logic for user to show that something goes wrong
+                }
+            }catch(Exception e)
             {
-                AuthData constructedData = Json.parseAuthJson(response);
-                //some logic for user to show that he's succsessfully registered
-                return constructedData;
-            }
-            else
-            {
-                return null;//some logic for user to show that something goes wrong
+                MessageBox.Show(e.Message);
+                return null;
             }
         }
 
@@ -72,6 +99,8 @@ namespace Sapper.Src
 
             if (response.IsSuccessStatusCode)
             {
+                var respBody = response.Content;
+
                 GameData constructedData = Json.parseGameDataJson(response);
                 return constructedData;
             }

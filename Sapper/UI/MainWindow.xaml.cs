@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Sapper.Src;
+using Sapper.Interfaces;
+using Sapper.Models;
 namespace Sapper
 {
     /// <summary>
@@ -20,9 +22,42 @@ namespace Sapper
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+
         public MainWindow()
         {
             InitializeComponent();
+            RegData test = new RegData();
+            test.Name = "aaaaaassss";
+            test.Nickname = "bbb21312312";
+            test.Password = "123ggreg";
+            test.regTime = DateTime.Now;
+            
+            Http.RegRequest(test).Wait();
+
+            string log = "Alex";
+            string pass = "1234";
+
+            //Task<AuthData> res = Http.AuthRequest(log, pass);
+            //
+            //
+            //AuthData d = res.Result;
+            //res.Wait(5000);
+            //if (d != null)
+            //{
+            //    int id = d.userId;
+            //    string nick = d.nickName;
+            //    MessageBox.Show(id.ToString(), pass);
+            //}else
+            //{
+            //    MessageBox.Show("NULL OBJECT");
+            //}
+            
+            
+            
         }
+        
+        
+         
     }
 }
