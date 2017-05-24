@@ -26,23 +26,26 @@ namespace Sapper
 
         public MainWindow()
         {
-            InitializeComponent();
-            RegData test = new RegData();
-            test.Name = "aaaaaassss";
-            test.Nickname = "bbb21312312";
-            test.Password = "123ggreg";
-            test.regTime = DateTime.Now;
-            
-            Http.RegRequest(test).Wait();
+            //InitializeComponent();
+            //RegData test = new RegData();
+            //test.Name = "aaaaaassss";
+            //test.Nickname = "bbb21312312";
+            //test.Password = "123ggreg";
+            //test.regTime = DateTime.Now;
+            //
+            //Http.RegRequest(test);
 
             string log = "Alex";
             string pass = "1234";
-
+          
+            
             //Task<AuthData> res = Http.AuthRequest(log, pass);
-            //
-            //
+             Http.AuthRequest(log, pass);
+
+            AuthData data =Task.FromResult<AuthData>(Http.AuthRequest(log, pass));
+
             //AuthData d = res.Result;
-            //res.Wait(5000);
+            
             //if (d != null)
             //{
             //    int id = d.userId;

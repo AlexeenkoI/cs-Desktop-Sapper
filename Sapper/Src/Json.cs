@@ -51,15 +51,19 @@ namespace Sapper.Src
             return null;
         }
 
-        public static AuthData parseAuthJson (HttpResponseMessage data)
+        public static AuthData parseAuthJson (string data)
         {
-            string body = data.Content.ToString();
+           
      
-            JsonValue result = JsonValue.Parse(body);
+            JsonValue result = JsonValue.Parse(data);
 
-            AuthData authData = new AuthData((int)result["id"],(string)result["NickName"],(Guid)result["Token"]);
-
-            return authData;
+            //int id = result["id"];
+            //string nick = result["NickName"];
+            //Guid token = Guid.Parse(result["Token"]);
+            string t = "1";
+            //AuthData authData = new AuthData(result["id"],result["NickName"],Guid.Parse(result["Token"]));
+            AuthData st = new AuthData();
+            return st;//authData;
         }
 
         public static GameData parseGameDataJson(HttpResponseMessage data)
