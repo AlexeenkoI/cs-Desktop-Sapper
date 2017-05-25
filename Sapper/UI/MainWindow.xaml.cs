@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using Sapper.Src;
 using Sapper.Interfaces;
 using Sapper.Models;
+using Sapper.UI;
+
 namespace Sapper
 {
     /// <summary>
@@ -22,45 +24,22 @@ namespace Sapper
     /// </summary>
     public partial class MainWindow : Window
     {
-        
-
+        AuthData _authData;
         public MainWindow()
         {
-            //InitializeComponent();
-            //RegData test = new RegData();
-            //test.Name = "aaaaaassss";
-            //test.Nickname = "bbb21312312";
-            //test.Password = "123ggreg";
-            //test.regTime = DateTime.Now;
-            //
-            //Http.RegRequest(test);
+            InitializeComponent();
 
-            string log = "Alex";
-            string pass = "1234";
-          
-            
-            //Task<AuthData> res = Http.AuthRequest(log, pass);
-             Http.AuthRequest(log, pass);
+            this.Hide();
+            AuthWindow authWindow = new AuthWindow();          
+            authWindow.ShowDialog();
 
-            AuthData data =Task.FromResult<AuthData>(Http.AuthRequest(log, pass));
-
-            //AuthData d = res.Result;
-            
-            //if (d != null)
-            //{
-            //    int id = d.userId;
-            //    string nick = d.nickName;
-            //    MessageBox.Show(id.ToString(), pass);
-            //}else
-            //{
-            //    MessageBox.Show("NULL OBJECT");
-            //}
-            
-            
-            
-        }
-        
-        
-         
+            if (authWindow.authData == null)
+                Close();
+            else
+            {
+                _authData = authWindow.authData;
+                this.Show();
+            }
+        }        
     }
 }

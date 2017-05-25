@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Security.Cryptography;
+using Sapper.Models;
+using Sapper.Src;
 
 namespace Sapper.UI
 {
@@ -22,6 +24,8 @@ namespace Sapper.UI
     /// </summary>
     public partial class AuthWindow : Window
     {
+        public AuthData authData;
+               
         private DispatcherTimer timer;
 
         private string _authLog { get; set; }
@@ -57,18 +61,29 @@ namespace Sapper.UI
             }
         }
 
+        private async void Auth(string log, string pass)
+        {
+            AuthData data = await Http.AuthRequest(log, pass);
+            if(data != null)
+            {
+                authData = data;
+                /*Database.insert(data); Если нужно вставляем данные в склайт*/
+                Close();
+            }        
+        }
+
         private void submitLogin_Click(object sender, RoutedEventArgs e)
         {
             if (check_params())
             {
-                //some logic with http class
-                Close();
+                /*Запускаем Прогресс бар*/
+                Auth(_authLog, _authPass);                
             }
             else
             {
+                /*Тушим Прогресс бар*/
                 _authLog = null;
                 _authPass = null;
-                return;
             }
         }
 
@@ -90,9 +105,7 @@ namespace Sapper.UI
         private void login_TextChanged(object sender, RoutedEventArgs e)
         {
             TextBox log = (TextBox)sender;
-            _authLog = log.Text;
-        
-            //_logdata = log.ToString();     
+            _authLog = log.Text;    
         }
 
         private void password_PasswordChanged(object sender, RoutedEventArgs e)

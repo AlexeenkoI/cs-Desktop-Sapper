@@ -125,7 +125,7 @@
         <TextBlock x:Name="TextLogin" Canvas.Top="100" Canvas.Left="160">
                 <Run FontSize="14">Login:</Run>
         </TextBlock>
-        <TextBox  x:Name="login" MaxLength="50" Width="170" Height="40" Canvas.Top="120" Canvas.Left="160" TextInput="login_TextChanged">
+        <TextBox  x:Name="login" MaxLength="50" Width="170" Height="40" Canvas.Top="120" Canvas.Left="160" TextChanged="login_TextChanged">
         </TextBox>
         <TextBlock Canvas.Top="170" Canvas.Left="160">
                 <Run FontSize="14">Password:</Run>
