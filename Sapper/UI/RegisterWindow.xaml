@@ -5,16 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sapper.UI"
         mc:Ignorable="d"
-        Title="RegisterWindow" Height="400" Width="300">
+        Title="RegisterWindow" Height="400" Width="300"
+        WindowStartupLocation="CenterScreen">
     <Grid Name="control" Height="369" VerticalAlignment="Top">
-        <Button x:Name="btn_register" Content="OK" HorizontalAlignment="Left" Margin="150,301,0,0" VerticalAlignment="Top" Width="75" Click="btn_register_Click"/>
-        <TextBox x:Name="tb_login" Tag="4" HorizontalAlignment="Left" Height="23" Margin="85,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="lb_login" Content="Login" HorizontalAlignment="Left" Margin="85,36,0,0" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="tb_password" HorizontalAlignment="Left" Height="23" Margin="85,126,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btn_register" Content="Cancel" HorizontalAlignment="Left" Margin="150,301,0,0" VerticalAlignment="Top" Width="75" Click="btn_close_Click"/>
+        <TextBox x:Name="tb_login" Tag="4" HorizontalAlignment="Left" Height="23" Margin="85,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="login_TextChanged"/>
+        <TextBlock x:Name="lb_login"  HorizontalAlignment="Left" Margin="90,36,0,0" VerticalAlignment="Top">
+            <Run>Login</Run>
+        </TextBlock>
+        <PasswordBox x:Name="tb_password" HorizontalAlignment="Left" Height="23" Margin="85,126,0,0" VerticalAlignment="Top" Width="120" PasswordChanged="password_PasswordChanged"/>
         <Label x:Name="lb_password" Content="Password" HorizontalAlignment="Left" Margin="85,95,0,0" VerticalAlignment="Top"/>
         <PasswordBox x:Name="tb_password_repeat" HorizontalAlignment="Left" Height="23" Margin="85,154,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="lb_nickName" Content="Name" HorizontalAlignment="Left" Margin="86,182,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tb_name" Tag="6" HorizontalAlignment="Left" Height="23" Margin="85,214,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btn_close" Content="Close" HorizontalAlignment="Left" Margin="70,301,0,0" VerticalAlignment="Top" Width="75" Click="btn_close_Click"/>
+        <TextBox x:Name="tb_name" Tag="6" HorizontalAlignment="Left" Height="23" Margin="85,214,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" TextChanged="nickName_TextChanged"/>
+        <Button x:Name="btn_close" Content="Submit" HorizontalAlignment="Left" Margin="70,301,0,0" VerticalAlignment="Top" Width="75" Click="btn_register_Click"/>
     </Grid>
 </Window>

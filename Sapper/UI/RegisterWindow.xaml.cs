@@ -1,6 +1,10 @@
 ﻿using Sapper.Enums;
+using Sapper.Models;
 using Sapper.Src;
+using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,17 +15,38 @@ namespace Sapper.UI
     /// </summary>
     public partial class RegisterWindow : Window
     {
+        public bool succsessReg = false;
+        private RegData regData = new RegData();
+
         public RegisterWindow()
         {
             InitializeComponent();
+            
         }
 
         private void btn_register_Click(object sender, RoutedEventArgs e)
         {          
             if(isFormValide())
             {
+                MessageBox.Show(regData.Password);
+                Reg(regData);
                 //Generate JSON string and send to server. (Message OK and Close).
             }                                       
+        }
+
+        private async void Reg(RegData regData)
+        {
+            succsessReg = await Http.RegRequest(regData);
+            if (succsessReg)
+            {
+                MessageBox.Show("Success");
+                Close();
+                Owner.Show();
+            }
+            else
+            {
+                MessageBox.Show("Error register");
+            }
         }
 
         private bool isFormValide ()
@@ -53,7 +78,44 @@ namespace Sapper.UI
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            
+            this.Close();
+            this.Owner.Show();
+        }
+
+        private void login_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox log = (TextBox)sender;
+            regData.Name = log.Text;
+        }
+
+        private void password_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            PasswordBox pass = (PasswordBox)sender;
+            string nonHash = pass.Password;
+            if (string.IsNullOrWhiteSpace(nonHash))
+            {
+                regData.Password = null;
+            }
+            else
+            {
+                string hash = ComputeMD5(nonHash);
+               regData.Password = hash;
+            }
+        }
+
+        private string ComputeMD5(string pass)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] checkSum = md5.ComputeHash(Encoding.UTF8.GetBytes(pass));
+            string result = BitConverter.ToString(checkSum).Replace("-", String.Empty);
+            return result;
+        }
+
+        private void nickName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox log = (TextBox)sender;
+            regData.Nickname = log.Text;
         }
     }
 }

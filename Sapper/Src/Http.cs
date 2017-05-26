@@ -30,18 +30,18 @@ namespace Sapper.Src
 
                 if (response.IsSuccessStatusCode)
                 {
-                    Message.show(1);
+                    //Message.show(1);
                     return true;
                     //some logic for user to show that he's succsessfully registered
                 }
                 if(response.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    Message.show(3);
+                    //Message.show(3);
                     return false;
                 }
                 else
                 {
-                    Message.show(2);//some logic for user to show that something goes wrong
+                    //Message.show(2);//some logic for user to show that something goes wrong
                     return false;
                 }
             }
@@ -64,25 +64,20 @@ namespace Sapper.Src
                 string.Format("{0}:{1}", log, pass))));
 
            
-                var response = await httpClient.GetAsync(QueryApi.SERVER + QueryApi.QUERY_AUTH); // uri will be switched for configurred baseaddr
+                var response = await httpClient.GetAsync(QueryApi.SERVER + QueryApi.QUERY_AUTH); 
                 string content = await response.Content.ReadAsStringAsync();
                 string br = content.Remove(0, 1);
                 if (response.IsSuccessStatusCode)
                 {
-                    //MessageBox.Show(content.ToString());
-                    //string t = "\r\n{\"id\":8,\"NickName\":\"Alex\",\"Token\":\"iTsTikEn\"}";
-                    //MessageBox.Show(t);
-                    //JsonValue val = JsonValue.Parse(br);
-                    
-                    int b = 8;
+
                     AuthData constructedData = Json.parseAuthJson(br);
-                    //some logic for user to show that he's succsessfully registered
-                    return null; //constructedData;
+                    
+                    return constructedData; //constructedData;
                 }
                 else
                 {
                     MessageBox.Show("none");
-                    return null;//some logic for user to show that something goes wrong
+                    return null;
                 }
             }catch(Exception e)
             {
@@ -103,12 +98,13 @@ namespace Sapper.Src
 
             HttpContent sendContent = Json.generateAuthJson(data);
             var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_GET_DATA, sendContent);
-
+            var respBody = await response.Content.ReadAsStringAsync();
+            respBody.Remove(0, 1);
             if (response.IsSuccessStatusCode)
             {
-                var respBody = response.Content;
+                
 
-                GameData constructedData = Json.parseGameDataJson(response);
+                GameData constructedData = Json.parseGameDataJson(respBody);
                 return constructedData;
             }
             

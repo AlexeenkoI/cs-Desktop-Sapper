@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Security.Cryptography;
+using Sapper.Models;
+using Sapper.Src;
 
 namespace Sapper.UI
 {
@@ -23,7 +25,7 @@ namespace Sapper.UI
     public partial class AuthWindow : Window
     {
         private DispatcherTimer timer;
-
+        public AuthData authData;
         private string _authLog { get; set; }
         private string _authPass { get; set; }
 
@@ -36,6 +38,32 @@ namespace Sapper.UI
         {
             TextLogin.Text = "Login:";
             TextLogin.Foreground = Brushes.Black;        
+        }
+
+       
+
+        private async void Auth(string log, string pass)
+        {
+            AuthData data = await Http.AuthRequest(log, pass);
+            if (data != null)
+            {
+                authData = data;
+                MessageBox.Show(data.nickName);
+                /*Database.insert(data); Если нужно вставляем данные в склайт*/
+                Close();
+            }else
+            {
+                TextLogin.Text = "Credentials incorrect, please try again.";
+                TextLogin.Foreground = Brushes.Red;
+
+                timer = new DispatcherTimer();
+                timer.Tick += new EventHandler(timer_Tick);
+                timer.Interval = new TimeSpan(0, 0, 3);
+                timer.Start();
+
+                login.Clear();
+                password.Clear();
+            }
         }
 
         private bool check_params()
@@ -61,8 +89,8 @@ namespace Sapper.UI
         {
             if (check_params())
             {
-                //some logic with http class
-                Close();
+                Auth(_authLog, _authPass);
+                
             }
             else
             {
@@ -84,7 +112,19 @@ namespace Sapper.UI
 
         private void regWindowOpen_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Hide();
+            RegisterWindow regWind = new RegisterWindow();
+            
+            regWind.Owner = this;
+            regWind.ShowDialog();
+            
+            if (regWind.succsessReg)
+            {
+                Close();
+            }else
+            {
+                
+            }
         }
 
         private void login_TextChanged(object sender, RoutedEventArgs e)
@@ -99,7 +139,7 @@ namespace Sapper.UI
         {
             PasswordBox pass = (PasswordBox)sender;
             string nonHash = pass.Password;
-            if (nonHash.Equals(""))
+            if (string.IsNullOrWhiteSpace(nonHash))
             {
                 _authPass = null;
             }

@@ -125,7 +125,7 @@
         <TextBlock x:Name="TextLogin" Canvas.Top="100" Canvas.Left="160">
                 <Run FontSize="14">Login:</Run>
         </TextBlock>
-        <TextBox  x:Name="login" MaxLength="50" Width="170" Height="40" Canvas.Top="120" Canvas.Left="160" TextInput="login_TextChanged">
+        <TextBox  x:Name="login" MaxLength="50" Width="170" Height="40" Canvas.Top="120" Canvas.Left="160" TextChanged="login_TextChanged">
         </TextBox>
         <TextBlock Canvas.Top="170" Canvas.Left="160">
                 <Run FontSize="14">Password:</Run>
@@ -134,7 +134,7 @@
         </PasswordBox>
         <Button x:Name="submitLogin" Content="OK" Canvas.Top="245" Canvas.Left="170" Height="30" Width="60" Click="submitLogin_Click"/>
         <Button x:Name="cancelButton" Content="Cancel" Canvas.Top="245" Canvas.Left="255" Height="30" Width="60" Click="cancelButton_Click" />
-        <TextBlock FontSize="14" Canvas.Top="390" Canvas.Left="60">
+        <TextBlock FontSize="14" Canvas.Top="390" Canvas.Left="110">
                 No Account? <Hyperlink Click="siteRedirect_Click">register on the website</Hyperlink> or <Hyperlink Click="regWindowOpen_Click">here.</Hyperlink>
         </TextBlock>
 

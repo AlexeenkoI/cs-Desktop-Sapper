@@ -56,18 +56,21 @@ namespace Sapper.Src
            
      
             JsonValue result = JsonValue.Parse(data);
-
+            
             //int id = result["id"];
             //string nick = result["NickName"];
-            //Guid token = Guid.Parse(result["Token"]);
+            //Guid token =Guid.Parse(result["Token"]);
+            
             string t = "1";
-            //AuthData authData = new AuthData(result["id"],result["NickName"],Guid.Parse(result["Token"]));
-            AuthData st = new AuthData();
-            return st;//authData;
+            AuthData authData = new AuthData(result["id"],result["NickName"],Guid.Parse(result["Token"]));
+            //AuthData st = new AuthData();
+            return authData;
         }
 
-        public static GameData parseGameDataJson(HttpResponseMessage data)
+        public static GameData parseGameDataJson(string data)
         {
+            JsonValue result = JsonValue.Parse(data);
+            //GameData gameData = new GameData();
             return null;
         }
     }
