@@ -7,6 +7,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Threading;
 
 namespace Sapper.UI
 {
@@ -17,21 +19,28 @@ namespace Sapper.UI
     {
         public bool succsessReg = false;
         private RegData regData = new RegData();
+        private DispatcherTimer timer;
 
         public RegisterWindow()
         {
             InitializeComponent();
-            
+
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            tb_login.Text = "Login:";
+            tb_login.Foreground = Brushes.Black;
         }
 
         private void btn_register_Click(object sender, RoutedEventArgs e)
-        {          
-            if(isFormValide())
+        {
+            if (isFormValide())
             {
-                MessageBox.Show(regData.Password);
+                //MessageBox.Show(regData.Password);
                 Reg(regData);
                 //Generate JSON string and send to server. (Message OK and Close).
-            }                                       
+            }
         }
 
         private async void Reg(RegData regData)
@@ -45,11 +54,18 @@ namespace Sapper.UI
             }
             else
             {
-                MessageBox.Show("Error register");
+                tb_login.Text = "User already exsists";
+                tb_login.Foreground = Brushes.Red;
+
+                timer = new DispatcherTimer();
+                timer.Tick += new EventHandler(timer_Tick);
+                timer.Interval = new TimeSpan(0, 0, 3);
+                timer.Start();
+   
             }
         }
 
-        private bool isFormValide ()
+        private bool isFormValide()
         {
             if (string.IsNullOrWhiteSpace(tb_password.Password) ||
                 string.IsNullOrWhiteSpace(tb_password_repeat.Password))
@@ -57,7 +73,7 @@ namespace Sapper.UI
                 Message.show((int)Messages.EMPTY_PASSWORD);
                 return false;
             }
-            
+
             if (tb_password.Password != tb_password_repeat.Password)
             {
                 Message.show((int)Messages.PASSWORDS_DO_NOT_MATCH);
@@ -78,7 +94,7 @@ namespace Sapper.UI
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
-            
+
             this.Close();
             this.Owner.Show();
         }
@@ -100,7 +116,7 @@ namespace Sapper.UI
             else
             {
                 string hash = ComputeMD5(nonHash);
-               regData.Password = hash;
+                regData.Password = hash;
             }
         }
 

@@ -11,17 +11,17 @@ namespace Sapper.Src
 {
     public static class Json
     {
-        public static StringContent generateRegJson (RegData data)
+        public static StringContent generateRegJson(RegData data)
         {
             if (data.Name != null && data.Nickname != null && data.Password != null)
             {
                 JsonObject jsonObj = new JsonObject();
-                
+
                 jsonObj.Add("Name", data.Name);
                 jsonObj.Add("Password", data.Password);
                 jsonObj.Add("NickName", data.Nickname);
                 //jsonObj.Add("RegTime", data.regTime.ToString());
-                
+
                 StringContent res = new StringContent(jsonObj.ToString(), Encoding.UTF8, "application/json");
                 return res;
             }
@@ -35,7 +35,8 @@ namespace Sapper.Src
 
         public static StringContent generateGameDataJson(GameData data)
         {
-            if (data.cGameLvl!=0 && data.cGameType!=0) {
+            if (data.cGameLvl != 0 && data.cGameType != 0)
+            {
                 JsonObject jsonObj = new JsonObject();
 
                 jsonObj.Add("UserId", data.cUserId);
@@ -51,18 +52,18 @@ namespace Sapper.Src
             return null;
         }
 
-        public static AuthData parseAuthJson (string data)
+        public static AuthData parseAuthJson(string data)
         {
-           
-     
+
+
             JsonValue result = JsonValue.Parse(data);
-            
+
             //int id = result["id"];
             //string nick = result["NickName"];
             //Guid token =Guid.Parse(result["Token"]);
-            
+
             string t = "1";
-            AuthData authData = new AuthData(result["id"],result["NickName"],Guid.Parse(result["Token"]));
+            AuthData authData = new AuthData(result["id"], result["NickName"], Guid.Parse(result["Token"]));
             //AuthData st = new AuthData();
             return authData;
         }
