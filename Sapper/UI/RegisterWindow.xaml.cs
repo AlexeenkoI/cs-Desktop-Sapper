@@ -46,6 +46,7 @@ namespace Sapper.UI
         private async void Reg(RegData regData)
         {
             succsessReg = await Http.RegRequest(regData);
+            //to do progress bar
             if (succsessReg)
             {
                 MessageBox.Show("Success");

@@ -72,7 +72,7 @@ namespace Sapper.Src
 
                     AuthData constructedData = Json.parseAuthJson(br);
 
-                    return constructedData; //constructedData;
+                    return constructedData;
                 }
                 else
                 {
@@ -103,8 +103,6 @@ namespace Sapper.Src
             respBody.Remove(0, 1);
             if (response.IsSuccessStatusCode)
             {
-
-
                 GameData constructedData = Json.parseGameDataJson(respBody);
                 return constructedData;
             }

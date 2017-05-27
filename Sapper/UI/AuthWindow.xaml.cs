@@ -44,9 +44,11 @@ namespace Sapper.UI
 
         private async void Auth(string log, string pass)
         {
+            //progress bar;
             AuthData data = await Http.AuthRequest(log, pass);
             if (data != null)
             {
+                
                 authData = data;
                 MessageBox.Show(data.nickName);
                 /*Database.insert(data); Если нужно вставляем данные в склайт*/
@@ -133,8 +135,6 @@ namespace Sapper.UI
         {
             TextBox log = (TextBox)sender;
             _authLog = log.Text;
-
-            //_logdata = log.ToString();     
         }
 
         private void password_PasswordChanged(object sender, RoutedEventArgs e)

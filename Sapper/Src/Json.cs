@@ -20,7 +20,6 @@ namespace Sapper.Src
                 jsonObj.Add("Name", data.Name);
                 jsonObj.Add("Password", data.Password);
                 jsonObj.Add("NickName", data.Nickname);
-                //jsonObj.Add("RegTime", data.regTime.ToString());
 
                 StringContent res = new StringContent(jsonObj.ToString(), Encoding.UTF8, "application/json");
                 return res;
@@ -54,24 +53,16 @@ namespace Sapper.Src
 
         public static AuthData parseAuthJson(string data)
         {
-
-
             JsonValue result = JsonValue.Parse(data);
-
-            //int id = result["id"];
-            //string nick = result["NickName"];
-            //Guid token =Guid.Parse(result["Token"]);
-
-            string t = "1";
             AuthData authData = new AuthData(result["id"], result["NickName"], Guid.Parse(result["Token"]));
-            //AuthData st = new AuthData();
             return authData;
         }
 
         public static GameData parseGameDataJson(string data)
         {
+            //to do
             JsonValue result = JsonValue.Parse(data);
-            //GameData gameData = new GameData();
+            
             return null;
         }
     }
