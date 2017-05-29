@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Sapper.Src
 {
+    //System.config
     public static class QueryApi
     {
         public static string SERVER = ConfigurationManager.AppSettings.GetValues("HttpServer").FirstOrDefault();

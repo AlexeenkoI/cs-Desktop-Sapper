@@ -91,13 +91,7 @@ namespace Sapper.Src
         {
             var httpClient = new HttpClient();
 
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
-                "Basic",
-                Convert.ToBase64String(
-                Encoding.ASCII.GetBytes(
-                string.Format("{0}:{1}", Auth.login, Auth.password))));
-
-            HttpContent sendContent = Json.generateAuthJson(data);
+            HttpContent sendContent = Json.generateRequestGameDataJson(data);
             var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_GET_DATA, sendContent);
             var respBody = await response.Content.ReadAsStringAsync();
             respBody.Remove(0, 1);
@@ -111,15 +105,14 @@ namespace Sapper.Src
             return null;
         }
 
-        public static async Task<bool> saveGameData(GameData gameData)
+        public static async Task<bool> saveGameData(GameData gameData, AuthData authData)
         {
             HttpClient httpClient = new HttpClient();
-            HttpContent httpContent = Json.generateGameDataJson(gameData);
-            //HttmpContent httpContent = Json.generateJson(gameData);
+            HttpContent sendContent = Json.generateGameDataJson(gameData, authData);
 
-            HttpResponseMessage response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_REGISTER, httpContent);
-
+            var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_SAVE_DATA, sendContent);
             return response.IsSuccessStatusCode;
+
         }
     }
 }
