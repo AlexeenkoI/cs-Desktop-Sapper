@@ -30,18 +30,18 @@ namespace Sapper.Src
 
                 if (response.IsSuccessStatusCode)
                 {
-                    //Message.show(1);
+                    
                     return true;
                     //some logic for user to show that he's succsessfully registered
                 }
                 if (response.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    //Message.show(3);
+                   
                     return false;
                 }
                 else
                 {
-                    //Message.show(2);//some logic for user to show that something goes wrong
+                    //some logic for user to show that something goes wrong
                     return false;
                 }
             }

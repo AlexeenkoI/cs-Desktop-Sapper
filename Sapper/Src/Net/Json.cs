@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Json;
+using System.Windows;
 
 namespace Sapper.Src
 {
@@ -22,31 +23,37 @@ namespace Sapper.Src
                 jsonObj.Add("NickName", data.Nickname);
 
                 StringContent res = new StringContent(jsonObj.ToString(), Encoding.UTF8, "application/json");
+                
                 return res;
             }
             return null;
         }
 
-        public static StringContent generateAuthJson(AuthData data)
+        public static StringContent generateRequestGameDataJson(AuthData data)
         {
-            return null;
+            JsonObject jsonObj = new JsonObject();
+            jsonObj.Add("Token", data.Token.ToString());
+            StringContent res = new StringContent(jsonObj.ToString(), Encoding.UTF8, "application/json");
+            return res;
         }
 
-        public static StringContent generateGameDataJson(GameData data)
+        public static StringContent generateGameDataJson(GameData data, AuthData authData)
         {
             if (data.cGameLvl != 0 && data.cGameType != 0)
             {
                 JsonObject jsonObj = new JsonObject();
-
-                jsonObj.Add("UserId", data.cUserId);
-                jsonObj.Add("Difficult", data.cGameLvl);
-                jsonObj.Add("GameType", data.cGameType);
-                jsonObj.Add("Score", data.cGameScore);
-                jsonObj.Add("Time", data.cGameTime.ToString());
-                jsonObj.Add("Date", data.cCreateTime.ToString());
-
+                jsonObj.Add("Token", authData.Token.ToString());
+                JsonObject obj= new JsonObject();
+                obj.Add("GameTime", data.cGameTime.ToString());
+                obj.Add("GameType", data.cGameType);
+                obj.Add("UserId", data.cUserId);
+                obj.Add("CreateTime", data.cCreateTime.ToString());
+                obj.Add("GameLvl", data.cGameLvl);
+                obj.Add("GameScore", data.cGameScore);
+                jsonObj.Add("Data", new JsonArray(obj));
                 StringContent res = new StringContent(jsonObj.ToString(), Encoding.UTF8, "application/json");
                 return res;
+
             }
             return null;
         }
@@ -58,12 +65,12 @@ namespace Sapper.Src
             return authData;
         }
 
-        public static GameData parseGameDataJson(string data)
+        public static GameData parseGameDataJson(string incdata)
         {
-            //to do
-            JsonValue result = JsonValue.Parse(data);
-            
-            return null;
+            //to do's
+            JsonValue result = JsonValue.Parse(incdata);
+            GameData data = new GameData(result["UserId"], result["GameLvl"],result["GameType"],result["GameTime"], result["CreateTime"], result["GameScore"]);
+            return data;
         }
     }
 }
