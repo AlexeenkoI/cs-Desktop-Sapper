@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace Sapper.Src.Elements
 {
-    class VisualCell
+    class VisualCell:UIElement
     {
         Border border;
         bool lmPressed;
@@ -64,6 +64,14 @@ namespace Sapper.Src.Elements
 
 
 
+        }
+
+        public void Draw(Grid grid)
+        {
+            if (grid != null)
+            {
+                grid.Children.Add(border);
+            }
         }
     }
 }
