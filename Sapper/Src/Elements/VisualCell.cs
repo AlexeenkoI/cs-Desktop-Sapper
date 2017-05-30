@@ -6,33 +6,48 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Net.Cache;
 
 namespace Sapper.Src.Elements
 {
     class VisualCell:UIElement
     {
-        Border border;
+        private enum onPress
+        {
+            nonePressed,
+            pressedOnce,
+            pressedTwice
+        }
+
+        Border vCell;
+        onPress press;
         bool lmPressed;
         bool rmPressed;
 
         public VisualCell(double height, double width)
         {
-            border = new Border();
-            border.Height = 30;//inc heigh
-            border.Width = 30;//inc width
+            vCell = new Border();
+            vCell.Height = height;//inc heigh
+            vCell.Width = width;//inc width
 
-            border.BorderBrush = Brushes.Black;
-            border.BorderThickness = new Thickness(2);
-            border.Background = Brushes.Silver;
+            vCell.BorderBrush = Brushes.Black;
+            vCell.BorderThickness = new Thickness(2);
+            vCell.Background = Brushes.Silver;
 
-            border.MouseEnter += mouse_in;
-            border.MouseLeave += mouse_leave;
-            border.MouseLeftButtonDown += mouse_down;
+            vCell.MouseEnter += mouse_in;
+            vCell.MouseLeave += mouse_leave;
+            vCell.MouseLeftButtonDown += mouse_down;
+            vCell.MouseRightButtonDown += mouse_Right_Down;
 
+            press = onPress.nonePressed;
             lmPressed = false;
             rmPressed = false;
         }
 
+        public VisualCell()
+        {
+        }
 
         private void mouse_in(object sender, EventArgs e)
         {
@@ -58,20 +73,44 @@ namespace Sapper.Src.Elements
             cellData.Margin = new Thickness(8, 4, 2, 2);
             eventedR.Child = cellData;
 
-            border.MouseEnter -= mouse_in;
-            border.MouseLeave -= mouse_leave;
-            border.MouseDown -= mouse_down;
-
-
-
+            vCell.MouseEnter -= mouse_in;
+            vCell.MouseLeave -= mouse_leave;
+            vCell.MouseLeftButtonDown -= mouse_down;
         }
 
-        public void Draw(Grid grid)
+        private void mouse_Right_Down(object sender, EventArgs e)
         {
-            if (grid != null)
+            Border eventedR = (Border)sender;
+            if (press==onPress.nonePressed)
             {
-                grid.Children.Add(border);
+                Image img = new Image();
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Images/flag.png"),new RequestCachePolicy(RequestCacheLevel.Default));
+                img.Margin = new Thickness(7, 2, 2, 2);
+                eventedR.Child = img;
+
+                press = onPress.pressedOnce;
+                vCell.MouseLeftButtonDown -= mouse_down;
+                
+            }else if(press == onPress.pressedOnce)
+            {
+                press = onPress.pressedTwice;
+                Image img = new Image();
+                img.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Question.png"), new RequestCachePolicy(RequestCacheLevel.Default));
+                img.Margin = new Thickness(4, 2, 2, 2);
+                eventedR.Child = img;
+            }else if(press == onPress.pressedTwice)
+            {
+                press = onPress.nonePressed;
+                eventedR.Child = null;
+                vCell.MouseLeftButtonDown += mouse_down;
             }
+        }
+
+        public void Draw(Canvas canvas, int posX, int posY)
+        {   
+            canvas.Children.Add(vCell);
+            Canvas.SetLeft(canvas, posX);
+            Canvas.SetTop(canvas, posY);
         }
     }
 }
