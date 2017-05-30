@@ -5,17 +5,113 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sapper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Sapper" Height="350" Width="525">
     <Window.Resources>
         <Style TargetType="Rectangle">
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
                     <Setter Property="Stroke" Value="Black"/>
                 </Trigger>
-        </Style.Triggers>
+            </Style.Triggers>
         </Style>
-    </Window.Resources>
-    <Grid x:Name="mainGrid">
         
+        <ControlTemplate x:Key="Button_Template" TargetType="{x:Type Button}">
+            <Border BorderBrush="#333" BorderThickness="1" 
+                                TextBlock.Foreground="#ddd" Margin="0 0 10 0" MaxHeight="30"
+                                MinWidth="80" Padding="5" Name="myBorder">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#676767" Offset="0"></GradientStop>
+                        <GradientStop Color="#474747" Offset="1"></GradientStop>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}"
+                              VerticalAlignment="Center" HorizontalAlignment="Center"></ContentPresenter>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="myBorder" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#777777" Offset="0"></GradientStop>
+                                <GradientStop Color="#575757" Offset="1"></GradientStop>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="myBorder" Property="Cursor" Value="Hand"></Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="myBorder" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#939292" Offset="0"></GradientStop>
+                                <GradientStop Color="#575757" Offset="1"></GradientStop>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="myBorder" Property="Cursor" Value="Hand"></Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="myBorder" Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#444" Offset="0"></GradientStop>
+                                <GradientStop Color="#222" Offset="1"></GradientStop>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="myBorder" Property="Opacity" Value="0.4"></Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="248*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Height="auto" Background="LightGray">
+            <MenuItem>
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="10" Width="10" Fill="Gray" Margin="0 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock FontSize="14">File</TextBlock>
+                    </StackPanel>
+                </MenuItem.Header>
+                <MenuItem Header="open" Command="ApplicationCommands.Open"/>
+                <MenuItem Header="save" Command="ApplicationCommands.Save"/>
+                <MenuItem Header="save as" Command="ApplicationCommands.SaveAs"/>
+                <MenuItem Header="exit" Command="ApplicationCommands.Close"/>               
+            </MenuItem>
+            <MenuItem>
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Height="10" Width="10" Fill="Gray" Margin="0 0 5 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock FontSize="14">Setting</TextBlock>
+                    </StackPanel>
+                </MenuItem.Header>
+                <MenuItem Header="XZone" />
+                <MenuItem Header="XZtwo" />
+                <MenuItem Header="XZthree" />
+                
+
+            </MenuItem>
+            
+            
+        </Menu>      
+            
+        <Button Grid.Row="1" HorizontalAlignment="Center" Template="{Binding Source={StaticResource ResourceKey=Button_Template}}">start</Button>
+
+       
+        
+        <Canvas Grid.Row="3">
+            
+        </Canvas>
+
     </Grid>
+
+    
 </Window>
