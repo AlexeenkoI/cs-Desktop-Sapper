@@ -112,7 +112,6 @@ namespace Sapper.Src
 
             var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_SAVE_DATA, sendContent);
             return response.IsSuccessStatusCode;
-
         }
     }
 }

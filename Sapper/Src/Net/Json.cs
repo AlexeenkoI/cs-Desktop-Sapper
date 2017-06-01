@@ -33,6 +33,7 @@ namespace Sapper.Src
         {
             JsonObject jsonObj = new JsonObject();
             jsonObj.Add("Token", data.Token.ToString());
+            jsonObj.Add("id", data.userId.ToString());
             StringContent res = new StringContent(jsonObj.ToString(), Encoding.UTF8, "application/json");
             return res;
         }
@@ -47,7 +48,7 @@ namespace Sapper.Src
                 obj.Add("GameTime", data.cGameTime.ToString());
                 obj.Add("GameType", data.cGameType);
                 obj.Add("UserId", data.cUserId);
-                obj.Add("CreateTime", data.cCreateTime.ToString());
+                //obj.Add("CreateTime", data.cCreateTime.ToString());
                 obj.Add("GameLvl", data.cGameLvl);
                 obj.Add("GameScore", data.cGameScore);
                 jsonObj.Add("Data", new JsonArray(obj));
@@ -67,9 +68,10 @@ namespace Sapper.Src
 
         public static GameData parseGameDataJson(string incdata)
         {
-            //to do's
             JsonValue result = JsonValue.Parse(incdata);
-            GameData data = new GameData(result["UserId"], result["GameLvl"],result["GameType"],result["GameTime"], result["CreateTime"], result["GameScore"]);
+            DateTime ts = DateTime.Parse(result["GameTime"]["date"]);
+            TimeSpan TimeSpan  = new TimeSpan(ts.Hour, ts.Minute, ts.Second);
+            GameData data = new GameData(result["UserId"], result["GameLvl"], result["GameType"], TimeSpan, result["GameScore"]);
             return data;
         }
     }
