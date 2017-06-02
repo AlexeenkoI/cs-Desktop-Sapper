@@ -24,7 +24,6 @@ namespace Sapper.UI
         public RegisterWindow()
         {
             InitializeComponent();
-
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -37,21 +36,19 @@ namespace Sapper.UI
         {
             if (isFormValide())
             {
-                //MessageBox.Show(regData.Password);
                 Reg(regData);
-                //Generate JSON string and send to server. (Message OK and Close).
             }
         }
 
         private async void Reg(RegData regData)
         {
+            //start progress bar
             succsessReg = await Http.RegRequest(regData);
-            //to do progress bar
+            //stop progress bar
             if (succsessReg)
             {
                 MessageBox.Show("Success");
                 Close();
-                Owner.Show();
             }
             else
             {
@@ -61,8 +58,7 @@ namespace Sapper.UI
                 timer = new DispatcherTimer();
                 timer.Tick += new EventHandler(timer_Tick);
                 timer.Interval = new TimeSpan(0, 0, 3);
-                timer.Start();
-   
+                timer.Start();  
             }
         }
 
@@ -94,10 +90,8 @@ namespace Sapper.UI
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
-        {
-
-            this.Close();
-            this.Owner.Show();
+        {        
+            Close();
         }
 
         private void login_TextChanged(object sender, TextChangedEventArgs e)
