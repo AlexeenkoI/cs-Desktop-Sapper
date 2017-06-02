@@ -40,18 +40,15 @@ namespace Sapper.UI
             TextLogin.Foreground = Brushes.Black;
         }
 
-
-
         private async void Auth(string log, string pass)
         {
-            //progress bar;
+            //start progress bar;
             AuthData data = await Http.AuthRequest(log, pass);
+            //stop progress bar;
             if (data != null)
-            {
-                
+            {             
                 authData = data;
-                MessageBox.Show(data.nickName);
-                /*Database.insert(data); Если нужно вставляем данные в склайт*/
+                /*Database.insert(data); insert data into database*/
                 Close();
             }
             else
@@ -93,7 +90,6 @@ namespace Sapper.UI
             if (check_params())
             {
                 Auth(_authLog, _authPass);
-
             }
             else
             {
@@ -110,25 +106,17 @@ namespace Sapper.UI
 
         private void siteRedirect_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void regWindowOpen_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
-            RegisterWindow regWind = new RegisterWindow();
+            Hide();
 
-            regWind.Owner = this;
+            RegisterWindow regWind = new RegisterWindow();
             regWind.ShowDialog();
 
-            if (regWind.succsessReg)
-            {
-                Close();
-            }
-            else
-            {
-
-            }
+            ShowDialog();
         }
 
         private void login_TextChanged(object sender, RoutedEventArgs e)
