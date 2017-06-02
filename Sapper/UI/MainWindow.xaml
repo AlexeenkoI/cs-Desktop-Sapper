@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sapper"
         mc:Ignorable="d"
-        Title="Sapper" Height="350" Width="525">
+        Title="Sapper" Height="350" Width="525"
+        WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Rectangle">
             <Style.Triggers>
