@@ -65,7 +65,7 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
-    
+
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="25*"/>
@@ -84,7 +84,7 @@
                 <MenuItem Header="open" Command="ApplicationCommands.Open"/>
                 <MenuItem Header="save" Command="ApplicationCommands.Save"/>
                 <MenuItem Header="save as" Command="ApplicationCommands.SaveAs"/>
-                <MenuItem Header="exit" Command="ApplicationCommands.Close"/>               
+                <MenuItem Header="exit" Command="ApplicationCommands.Close"/>
             </MenuItem>
             <MenuItem>
                 <MenuItem.Header>
@@ -96,22 +96,14 @@
                 <MenuItem Header="XZone" />
                 <MenuItem Header="XZtwo" />
                 <MenuItem Header="XZthree" />
-                
-
             </MenuItem>
-            
-            
-        </Menu>      
-            
+        </Menu>
+
+        <Label Grid.Row="1" Name="lb_nickName" Content="Name"></Label>
         <Button Grid.Row="1" HorizontalAlignment="Center" Template="{Binding Source={StaticResource ResourceKey=Button_Template}}">start</Button>
 
-       
-        
         <Canvas Grid.Row="3">
-            
+
         </Canvas>
-
     </Grid>
-
-    
 </Window>
