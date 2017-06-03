@@ -38,12 +38,12 @@ namespace Sapper.Src
             return res;
         }
 
-        public static StringContent generateGameDataJson(GameData data, AuthData authData)
+        public static StringContent generateGameDataJson(GameData data)
         {
             if (data.cGameLvl != 0 && data.cGameType != 0)
             {
                 JsonObject jsonObj = new JsonObject();
-                jsonObj.Add("Token", authData.Token.ToString());
+                jsonObj.Add("Token", Auth.token.ToString());
                 JsonObject obj= new JsonObject();
                 obj.Add("GameTime", data.cGameTime.ToString());
                 obj.Add("GameType", data.cGameType);
@@ -70,8 +70,8 @@ namespace Sapper.Src
         {
             JsonValue result = JsonValue.Parse(incdata);
             DateTime ts = DateTime.Parse(result["GameTime"]["date"]);
-            TimeSpan TimeSpan  = new TimeSpan(ts.Hour, ts.Minute, ts.Second);
-            GameData data = new GameData(result["UserId"], result["GameLvl"], result["GameType"], TimeSpan, result["GameScore"]);
+            TimeSpan gameTime  = new TimeSpan(ts.Hour, ts.Minute, ts.Second);
+            GameData data = new GameData(result["UserId"], result["GameLvl"], result["GameType"], gameTime, result["GameScore"]);
             return data;
         }
     }

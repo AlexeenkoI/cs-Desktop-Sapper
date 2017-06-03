@@ -27,16 +27,13 @@ namespace Sapper.Src
             {
                 var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_REGISTER, sendContent); // uri will be switched for configurred baseaddr
 
-
                 if (response.IsSuccessStatusCode)
-                {
-                    
+                {                   
                     return true;
                     //some logic for user to show that he's succsessfully registered
                 }
                 if (response.StatusCode == HttpStatusCode.BadRequest)
-                {
-                   
+                {                  
                     return false;
                 }
                 else
@@ -63,20 +60,16 @@ namespace Sapper.Src
                 Encoding.ASCII.GetBytes(
                 string.Format("{0}:{1}", log, pass))));
 
-
                 var response = await httpClient.GetAsync(QueryApi.SERVER + QueryApi.QUERY_AUTH);
                 string content = await response.Content.ReadAsStringAsync();
                 string br = content.Remove(0, 1);
                 if (response.IsSuccessStatusCode)
                 {
-
                     AuthData constructedData = Json.parseAuthJson(br);
-
                     return constructedData;
                 }
                 else
                 {
-                    MessageBox.Show("none");
                     return null;
                 }
             }
@@ -105,10 +98,10 @@ namespace Sapper.Src
             return null;
         }
 
-        public static async Task<bool> saveGameData(GameData gameData, AuthData authData)
+        public static async Task<bool> saveGameData(GameData gameData)
         {
             HttpClient httpClient = new HttpClient();
-            HttpContent sendContent = Json.generateGameDataJson(gameData, authData);
+            HttpContent sendContent = Json.generateGameDataJson(gameData);
 
             var response = await httpClient.PostAsync(QueryApi.SERVER + QueryApi.QUERY_SAVE_DATA, sendContent);
             return response.IsSuccessStatusCode;
