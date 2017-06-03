@@ -1,4 +1,6 @@
-﻿using Sapper.Models;
+﻿using Sapper.Enums;
+using Sapper.Models;
+using Sapper.Src;
 using System.Windows;
 
 namespace Sapper.UI
@@ -8,10 +10,12 @@ namespace Sapper.UI
     /// </summary>
     public partial class ScoreWindow : Window
     {
+        GameData gameData;
         public ScoreWindow(GameData data)
         {
             InitializeComponent();
-            InitializeLables(data);              
+            gameData = data;
+            InitializeLables(gameData);              
         }
 
         private void InitializeLables(GameData data)
@@ -21,12 +25,20 @@ namespace Sapper.UI
             lb_gameScore.Content = data.cGameScore;
         }
 
-        private void btn_save_Click(object sender, RoutedEventArgs e)
+        private async void btn_save_Click(object sender, RoutedEventArgs e)
         {
-            // 1 - Model 'GameData' Generate JSON string
-            // 2 - JSON string to the server via HTTP POST 
-                        
-            Close();
+            if(await Http.saveGameData(gameData))
+            {
+                Close();
+            }
+            else
+            {
+                /* TODO 
+                 * 1 -> Insert data into database
+                 * 2 -> Show Error Message
+                */
+                Close();
+            }
         }
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
