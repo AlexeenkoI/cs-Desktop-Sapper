@@ -23,16 +23,14 @@ namespace Sapper
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
-        private AuthData _authData;
-       
+    {   
         public MainWindow()
         {                    
             InitializeComponent();
-            Auth();          
+            Authorize();
         }
 
-        private void Auth ()
+        private void Authorize ()
         {
             Hide();
             AuthWindow authWindow = new AuthWindow();
@@ -42,8 +40,10 @@ namespace Sapper
                 Close();
             else
             {
-                _authData = authWindow.authData;
-                lb_nickName.Content = _authData.nickName;
+                Auth.id = authWindow.authData.userId;
+                Auth.name = authWindow.authData.nickName;
+                Auth.token = authWindow.authData.Token;
+                lb_nickName.Content = Auth.name;
                 Show();
             }
         }
