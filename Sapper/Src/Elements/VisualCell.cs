@@ -20,16 +20,25 @@ namespace Sapper.Src.Elements
             pressedTwice
         }
 
-        Border vCell;
-        onPress press;
-        bool lmPressed;
-        bool rmPressed;
+        private Image flag;
+        private Image question;
+
+        private Border vCell;
+        private onPress press { get; set; }
+        
 
         public VisualCell(double height, double width)
         {
             vCell = new Border();
             vCell.Height = height;//inc heigh
             vCell.Width = width;//inc width
+
+            flag = new Image();
+            flag.Source = new BitmapImage(new Uri("pack://application:,,,/Images/flag.png"), new RequestCachePolicy(RequestCacheLevel.Default));
+            flag.Margin = new Thickness(7, 2, 2, 2);
+            question = new Image();
+            question.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Question.png"), new RequestCachePolicy(RequestCacheLevel.Default));
+            question.Margin = new Thickness(4, 2, 2, 2);
 
             vCell.BorderBrush = Brushes.Black;
             vCell.BorderThickness = new Thickness(2);
@@ -41,8 +50,6 @@ namespace Sapper.Src.Elements
             vCell.MouseRightButtonDown += mouse_Right_Down;
 
             press = onPress.nonePressed;
-            lmPressed = false;
-            rmPressed = false;
         }
 
         public VisualCell()
@@ -83,10 +90,10 @@ namespace Sapper.Src.Elements
             Border eventedR = (Border)sender;
             if (press==onPress.nonePressed)
             {
-                Image img = new Image();
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/Images/flag.png"),new RequestCachePolicy(RequestCacheLevel.Default));
-                img.Margin = new Thickness(7, 2, 2, 2);
-                eventedR.Child = img;
+                //Image img = new Image();
+                //img.Source = new BitmapImage(new Uri("pack://application:,,,/Images/flag.png"),new RequestCachePolicy(RequestCacheLevel.Default));
+                // img.Margin = new Thickness(7, 2, 2, 2);
+                eventedR.Child = flag;
 
                 press = onPress.pressedOnce;
                 vCell.MouseLeftButtonDown -= mouse_down;
@@ -94,10 +101,10 @@ namespace Sapper.Src.Elements
             }else if(press == onPress.pressedOnce)
             {
                 press = onPress.pressedTwice;
-                Image img = new Image();
-                img.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Question.png"), new RequestCachePolicy(RequestCacheLevel.Default));
-                img.Margin = new Thickness(4, 2, 2, 2);
-                eventedR.Child = img;
+                //Image img = new Image();
+                //img.Source = new BitmapImage(new Uri("pack://application:,,,/Images/Question.png"), new RequestCachePolicy(RequestCacheLevel.Default));
+                //img.Margin = new Thickness(4, 2, 2, 2);
+                eventedR.Child = question;
             }else if(press == onPress.pressedTwice)
             {
                 press = onPress.nonePressed;

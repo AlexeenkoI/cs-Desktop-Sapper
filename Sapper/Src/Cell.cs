@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Sapper.Enums;
 using Sapper.Interfaces;
+using Sapper.Src.Elements;
+using System.Windows.Controls;
 
 namespace Sapper.Src
 {
@@ -14,14 +16,17 @@ namespace Sapper.Src
         private State State = State.CLOSE;
         private int numberMinesAround = 0; //возможно удалить это и вынести счетчик мин в field
         private int posX, posY;
-        
+        private VisualCell vCell;
+
         public Cell()
         {
 
         }
 
+
         public Cell(CellType incType, int incX, int incY)
         {
+            vCell = new VisualCell();
             this.CellType = incType;
             this.posX = incX;
             this.posY = incY;
@@ -37,7 +42,6 @@ namespace Sapper.Src
             return this.numberMinesAround;
         }
 
-
         public void set_cellType(CellType incCellType)
         {
             
@@ -49,10 +53,9 @@ namespace Sapper.Src
         }
 
         
-        
         public void set_State(State incState)
         {
-            if(incState!=0)
+           
             this.State = incState;
         }
         public State get_State()
@@ -69,13 +72,16 @@ namespace Sapper.Src
         }
         public int get_Position_X()
         {
-            return this.posX;
+            return posX;
         }
         public int get_Position_Y()
         {
-            return this.posY;
+            return posY;
         }
 
-
+        public void drawMe(Canvas canvas, int posX, int poxY)
+        {
+            vCell.Draw(canvas, posX, posY);
+        }
     }
 }
