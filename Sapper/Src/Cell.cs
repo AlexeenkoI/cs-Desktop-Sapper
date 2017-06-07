@@ -32,10 +32,15 @@ namespace Sapper.Src
             this.posY = incY;
         }
 
-        public void set_numberMinesAround(int mineCount)
+        public void increase_numberMinesAround()
         {
-            this.numberMinesAround = mineCount;
+            this.numberMinesAround++;
             
+        }
+
+        public void decrease_numberMunesAround()
+        {
+            this.numberMinesAround--;
         }
         public int get_numberMinesAround() 
         {
